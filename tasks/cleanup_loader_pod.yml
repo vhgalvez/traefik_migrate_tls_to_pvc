@@ -1,0 +1,4 @@
+- name: Eliminar el pod pvc-loader
+  command: kubectl delete pod pvc-loader -n {{ traefik_namespace }}
+  delegate_to: localhost
+  ignore_errors: true

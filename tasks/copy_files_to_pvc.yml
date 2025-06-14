@@ -1,0 +1,11 @@
+- name: Copiar acme.json al PVC
+  command: kubectl -n {{ traefik_namespace }} cp {{ acme_json_local_path }} pvc-loader:/data/acme.json
+  delegate_to: localhost
+
+- name: Copiar traefik.crt al PVC
+  command: kubectl -n {{ traefik_namespace }} cp {{ cert_local_path }} pvc-loader:/data/default.crt
+  delegate_to: localhost
+
+- name: Copiar traefik.key al PVC
+  command: kubectl -n {{ traefik_namespace }} cp {{ key_local_path }} pvc-loader:/data/default.key
+  delegate_to: localhost

@@ -1,0 +1,26 @@
+- name: Crear pod temporal para montar el PVC
+  kubernetes.core.k8s:
+    state: present
+    definition:
+      apiVersion: v1
+      kind: Pod
+      metadata:
+        name: pvc-loader
+        namespace: {{ traefik_namespace }}
+      spec:
+        containers:
+          - name: busybox
+            image: busybox
+            command: ["/bin/sh", "-c", "sleep 300"]
+            volumeMounts:
+              - name: traefikdata
+                mountPath: /data
+        volumes:
+          - name: traefikdata
+            persistentVolumeClaim:
+              claimName: {{ pvc_name }}
+        restartPolicy: Never
+
+- name: Esperar a que el pod pvc-loader esté listo
+  command: kubectl wait --for=condition=Ready pod/pvc-loader -n {{ traefik_namespace }} --timeout=60s
+  delegate_to: localhost

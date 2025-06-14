@@ -1,0 +1,4 @@
+- name: Crear PVC para Traefik
+  kubernetes.core.k8s:
+    state: present
+    definition: "{{ lookup('template', 'pvc_traefik_data.yaml.j2') }}"

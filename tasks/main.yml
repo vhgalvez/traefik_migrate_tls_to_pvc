@@ -1,0 +1,8 @@
+# tasks\main.yml
+traefik_namespace: kube-system
+pvc_name: traefik-data
+storage_class: longhorn
+storage_size: 1Gi
+acme_json_local_path: /tmp/acme.json
+cert_local_path: files/certs/traefik.crt
+key_local_path: files/certs/traefik.key

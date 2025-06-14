@@ -1,0 +1,6 @@
+- name: Detectar el pod de Traefik
+  command: >
+    kubectl get pods -n {{ traefik_namespace }} -l app.kubernetes.io/name=traefik
+    -o jsonpath="{.items[0].metadata.name}"
+  register: traefik_pod_name
+  changed_when: false

@@ -1,0 +1,4 @@
+- name: Copiar acme.json desde el pod Traefik
+  command: >
+    kubectl -n {{ traefik_namespace }} cp {{ traefik_pod_name.stdout }}:/data/acme.json {{ acme_json_local_path }}
+  delegate_to: localhost
